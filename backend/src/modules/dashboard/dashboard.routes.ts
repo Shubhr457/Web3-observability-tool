@@ -18,7 +18,12 @@ router.get('/stats', async (_req: Request, res: Response) => {
         EventModel.countDocuments(),
         TransactionModel.countDocuments({ status: 'failed' }),
         AlertModel.countDocuments(),
-        provider?.getBlockNumber().catch(() => null) ?? null,
+        provider
+          ? Promise.race([
+              provider.getBlockNumber(),
+              new Promise<null>(r => setTimeout(() => r(null), 3000)),
+            ]).catch(() => null)
+          : null,
       ]);
 
     const [recentAlerts, recentEvents] = await Promise.all([

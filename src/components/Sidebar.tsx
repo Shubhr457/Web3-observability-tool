@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const links = [
-  { href: '/',             label: 'Dashboard',     icon: '▣' },
-  { href: '/contracts',    label: 'Contracts',     icon: '⬡' },
-  { href: '/events',       label: 'Events',        icon: '⚡' },
-  { href: '/transactions', label: 'Transactions',  icon: '⇄' },
-  { href: '/alerts',       label: 'Alerts',        icon: '🔔' },
+  { href: '/', label: 'Dashboard' },
+  { href: '/contracts', label: 'Contracts' },
+  { href: '/events', label: 'Events' },
+  { href: '/transactions', label: 'Transactions' },
+  { href: '/alerts', label: 'Alerts' },
 ];
 
 export default function Sidebar() {
@@ -19,19 +19,18 @@ export default function Sidebar() {
         <p className="text-xs text-gray-400 mt-0.5">On-chain monitoring</p>
       </div>
       <nav className="flex flex-col gap-1">
-        {links.map(({ href, label, icon }) => {
+        {links.map(({ href, label }) => {
           const active = pathname === href;
           return (
             <Link
               key={href}
               href={href}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 active
                   ? 'bg-indigo-600 text-white'
                   : 'text-gray-400 hover:bg-gray-800 hover:text-white'
               }`}
             >
-              <span className="text-base">{icon}</span>
               {label}
             </Link>
           );
